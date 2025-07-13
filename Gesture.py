@@ -29,10 +29,7 @@ def isClosed(Tx,Ty,cx,cy):
         return False
     else:
         return True
-   # if distance_x > 150 and distance_y > 150:
-   #     return True
-   # else:
-   #     return False
+
 
 
 
@@ -42,15 +39,12 @@ modifier_x, modifier_y = -10, -30
 
 while True:
     _, frame = vid.read()
-    # convert from bgr to rgb
     RGBframe = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result = Hands.process(RGBframe)
 
     if result.multi_hand_landmarks:
 
-        #print("hand found")
         for handLm in result.multi_hand_landmarks :
-            #print(handLm)
 
 
             for id, lm in enumerate(handLm.landmark):
@@ -59,29 +53,22 @@ while True:
 
                 if id == 0:
                     Tx, Ty = cx, cy
-                    #cv2.circle(frame,(Tx,Ty),6,(255,0,255),cv2.FILLED,)
-                    #cv2.putText(frame,'chuj',(cx + modifier_x,cy + modifier_y),cv2.FONT_HERSHEY_PLAIN,2,(255,100,100),6,cv2.LINE_AA)
                 if id == 4:
-                    #cv2.circle(frame, (cx, cy), 6, (0, 0, 0), cv2.FILLED)
                     cv2.putText(frame, '1', (cx + modifier_x, cy + modifier_y), cv2.FONT_HERSHEY_PLAIN, 2, (255, 100, 100), 6, cv2.LINE_AA)
                     Kx, Ky = cx,cy
 
                 if id == 8:
-                    #cv2.circle(frame,(cx,cy),6,(0,0,0),cv2.FILLED)
                     cv2.putText(frame, '2', (cx + modifier_x, cy + modifier_y), cv2.FONT_HERSHEY_PLAIN, 2, (255, 100, 100), 6, cv2.LINE_AA)
                     index = isClosed(Tx,Ty,cx,cy)
                 if id == 12:
-                    #cv2.circle(frame,(cx,cy),6,(0,0,0),cv2.FILLED)
                     cv2.putText(frame, '3', (cx + modifier_x, cy + modifier_y), cv2.FONT_HERSHEY_PLAIN, 2, (255, 100, 100), 6, cv2.LINE_AA)
                     middle = isClosed(Tx, Ty, cx, cy)
                 if id == 16:
-                    #cv2.circle(frame,(cx,cy),6,(0,0,0),cv2.FILLED)
                     cv2.putText(frame, '4', (cx + modifier_x, cy + modifier_y), cv2.FONT_HERSHEY_PLAIN, 2, (255, 100, 100), 6, cv2.LINE_AA)
                     ring = isClosed(Tx, Ty, cx, cy)
                 if id == 17:
                     thumb = isClosed(Kx, Ky, cx, cy)
                 if id == 20:
-                    #cv2.circle(frame,(cx,cy),6,(0,0,0),cv2.FILLED)
                     cv2.putText(frame, '5', (cx + modifier_x, cy + modifier_y), cv2.FONT_HERSHEY_PLAIN, 2, (255, 100, 100), 6, cv2.LINE_AA)
                     pinky = isClosed(Tx, Ty, cx, cy)
 
